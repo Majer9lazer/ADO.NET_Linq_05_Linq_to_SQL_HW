@@ -101,6 +101,7 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
                   from mo in m.TablesModels
                   select new
                   {
+
                       m.strName,
                       m.ManufacturerDescription,
                       mo.intManufacturerID,
