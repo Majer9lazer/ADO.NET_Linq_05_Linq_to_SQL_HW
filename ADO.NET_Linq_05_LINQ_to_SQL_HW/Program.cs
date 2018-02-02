@@ -12,44 +12,22 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
 {
     class Program
     {
-        private static LocaDb db = new LocaDb();
-        private static string _connstring = "";
         static void Main(string[] args)
+        {
+            ShowMenu();
+        }
+        private static void ShowMenu()
         {
             try
             {
-
-                #region Для проверки на связку таблиц
-
-                //var query1 = from e in NewEquipments
-                //             select
-                //             from t in e.TableEquipmentHistories
-                //             where t.intEquipmentID == e.intEquipmentID
-                //             select new
-                //             {
-                //                 e.intGarageRoom,
-                //                 e.strSerialNo,
-                //                 t.intTypeHistory,
-                //                 t.dStartDate,
-                //                 t.dEndDate,
-                //                 t.intDaysCount,
-                //                 t.intStatys
-                //             };
-                #endregion
-                //Всё окей
-                //Task_03(Task_02());
-                //Task_05(1);
-                //Task_07();
-               
                 start:
-              
                 for (int i = 2; i <= 7; i++)
                 {
-                    Console.WriteLine("{0} - Task {0}",i);
+                    Console.WriteLine("{0} - Task {0}", i);
                 }
                 int option = 8;
                 Console.WriteLine("1 - Exit");
-                int.TryParse(Console.ReadLine(),out option);
+                int.TryParse(Console.ReadLine(), out option);
                 switch (option)
                 {
 
@@ -57,8 +35,8 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
                     case 2:
                         {
                             Console.Clear();
-                            Console.WriteLine("Выполняем задание - {0}",option);
-                            Task_02();
+                            Console.WriteLine("Выполняем задание - {0}", option);
+                            EgorStructure.Task_02();
                             goto start;
                         }
                     case 3:
@@ -66,14 +44,14 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
                             Console.Clear();
                             Console.WriteLine("Выполняем задание - {0}", option);
                             Console.WriteLine("Придется запустить задание под номером 2 так как они оба связаны");
-                            Task_03(Task_02());
+                            EgorStructure.Task_03(EgorStructure.Task_02());
                             goto start;
                         }
                     case 4:
                         {
                             Console.Clear();
                             Console.WriteLine("Выполняем задание - {0}", option);
-                            Task_04(); goto start;
+                            EgorStructure.Task_04(); goto start;
 
                         }
                     case 5:
@@ -82,28 +60,28 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
                             Console.WriteLine("Выполняем задание - {0}", option);
                             Console.WriteLine("1 - Использовать оптимальную загрузку данных\n2 -Использовать отложенную загрузку данных");
                             int.TryParse(Console.ReadLine(), out option);
-                            Task_05(option);
+                            EgorStructure.Task_05(option);
                             goto start;
                         }
                     case 6:
                         {
                             Console.Clear();
                             Console.WriteLine("Выполняем задание - {0}", option);
-                            Task_06();
+                            EgorStructure.Task_06();
                             goto start;
                         }
                     case 7:
                         {
                             Console.Clear();
                             Console.WriteLine("Выполняем задание - {0}", option);
-                            Task_07();
+                            EgorStructure.Task_07();
                             goto start;
                         }
                     default:
                         Console.WriteLine("Вы выбрали пункт которого нет в списке!");
                         break;
                 }
-                 //  Task_04();
+              
             }
             catch (Exception ex)
             {
@@ -111,7 +89,13 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
                 Console.WriteLine(ex.Message);
             }
         }
-        private static void Task_04()
+
+    }
+    struct EgorStructure
+    {
+        private static LocaDb db = new LocaDb();
+        private static string _connstring = "";
+        public static void Task_04()
         {
             _connstring = ConfigurationManager.ConnectionStrings["LocaDb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(_connstring))
@@ -136,7 +120,7 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
                 Console.WriteLine("Добавление прошло успешно!!");
             }
         }
-        static List<EquipmentAndHistoryUnion> Task_02()
+        public static List<EquipmentAndHistoryUnion> Task_02()
         {
             Table<TableEquipmentHistory> TableEquipmentHistoryies =
                             db.GetTable<TableEquipmentHistory>();
@@ -189,7 +173,7 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
             }
             return unlist;
         }
-        static void Task_05(int option)
+        public static void Task_05(int option)
         {
             Table<Manufacturer> manufactures = db.GetTable<Manufacturer>();
             if (option == 1)
@@ -249,7 +233,7 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
                 }
             }
         }
-        private static void Task_07()
+        public static void Task_07()
         {
             Console.WriteLine("Удаляем только те поля где dEndDate=null...");
             List<TableEquipmentHistory> query = db.GetTable<TableEquipmentHistory>().Where(w => w.dEndDate == null).ToList();
@@ -258,7 +242,7 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
             db.SubmitChanges();
             Console.WriteLine("Удаление прошло успешно)))");
         }
-        private static void Task_03(List<EquipmentAndHistoryUnion> unlist)
+        public static void Task_03(List<EquipmentAndHistoryUnion> unlist)
         {
             if (unlist.Count != 0)
             {
@@ -272,7 +256,7 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
                 Console.WriteLine("Данные не  пришли!");
             }
         }
-        private static void Task_06()
+        public static void Task_06()
         {
             List<newEquipment> equipments = db.GetTable<newEquipment>().OrderBy(o => o.intEquipmentID).Select(s => s).ToList();
             List<TablesModel> models = db.GetTable<TablesModel>().Where(w => w.intModelID > 10).Select(s => s).ToList();
