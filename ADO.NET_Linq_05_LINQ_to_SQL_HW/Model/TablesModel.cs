@@ -23,5 +23,7 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW.Model
         public string strImage { get; set; }
         [Association(ThisKey = "intManufacturerID", OtherKey = "intManufacturerID")]
         public EntitySet<Manufacturer> Manufactures { get; set; }
+        [Association(ThisKey = "intModelID", OtherKey = "intModelID")]
+        public EntitySet<newEquipment> newEquipments { get; set; }
     }
 }

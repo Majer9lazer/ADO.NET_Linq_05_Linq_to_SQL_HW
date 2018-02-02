@@ -90,6 +90,8 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW.Model
         public string Description { get; set; }
         [Association(ThisKey = "intEquipmentID", OtherKey = "intEquipmentID")]
         public EntitySet<TableEquipmentHistory> TableEquipmentHistories { get; set; }
-
+        [Association(ThisKey = "intModelID", OtherKey = "intModelID")]
+        public EntitySet<TablesModel> TablesModels { get; set; }
+        
     }
 }

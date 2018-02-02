@@ -18,6 +18,6 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW.Model
         public Table<TableEquipmentHistory> TableEquipmentHistories { get; set; }
         public Table<TablesModel> TablesModels { get; set; }
 
-       
+       public Table<EquipmentAndHistoryUnion> EquipmentAndHistoryUnions { get; set; }
     }
 }
