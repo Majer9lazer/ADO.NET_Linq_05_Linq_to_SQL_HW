@@ -4,7 +4,7 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW.Model
     using System.Collections.Generic;
     using System.Data.Linq.Mapping;
     using System.Data.Linq;
-    [Table(Name = "Manufacturer")]
+    [Table(Name = "TablesManufacturer")]
 
     public class Manufacturer
     {

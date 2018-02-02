@@ -100,19 +100,21 @@ namespace ADO.NET_Linq_05_LINQ_to_SQL_HW
             _connstring = ConfigurationManager.ConnectionStrings["LocaDb"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(_connstring))
             {
-                string date = string.Format("{0:yyyy/dd/mm}", DateTime.Now.AddDays(1));
+                string date = string.Format("{0:yyyy/dd/MM}", DateTime.Now);
                 date = date.Replace('.', '-');
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
+                string txt =
+             "insert into TablesManufacturer(strName) values('Audi')" +
+               "insert into TablesManufacturer(strName) values('BMW')" +
+                 "insert into TablesManufacturer(strName) values('KIA')" +
+                   "insert into TablesManufacturer(strName) values('JEEP')";
                 cmd.CommandText = "insert into newEquipment" +
                     "(intManufacturerID,intModelID,intSNPrefixID,intEquipmentTypeID,intSMCSFamilyID,intSizeID," +
                     "intMetered,LastDate,intLastMetered,intTotalMetered,bitActive,bitPreservation,bitMeter," +
                     "bitKTG,isDelete,intLocationId,bitMethodAmortization)" +
-                    "values(1,1,119,29,1,3,9999,'" + date + "',1212,454,1,0,0,0,0,4,0)" +
-                    "insert into Manufacturer(strName) values('Audi')" +
-                      "insert into Manufacturer(strName) values('BMW')" +
-                        "insert into Manufacturer(strName) values('KIA')" +
-                          "insert into Manufacturer(strName) values('JEEP')";
+                    "values(1,1,119,29,1,3,9999,'" + date + "',1212,454,1,0,0,0,0,4,0)"+txt;
+         
 
                 cmd.Connection = conn;
                 cmd.ExecuteNonQuery();
